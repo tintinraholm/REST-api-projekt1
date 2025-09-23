@@ -19,6 +19,8 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 8080
 
+EXPOSE 8070
+
 # Generate the prisma client
 RUN npx prisma generate
 
