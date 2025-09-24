@@ -7,11 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model notes {
+model Note {
   id         Int       @id(map: "PK_notes") @default(autoincrement())
   author_id  Int
   note       String?   @db.VarChar(250)
   drawing    Json?
   created_at DateTime? @default(now()) @db.Timestamp(6)
   updated_at DateTime? @default(now()) @db.Timestamp(6)
+
+  @@map("notes")
 }

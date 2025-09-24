@@ -1,0 +1,17 @@
+@apiURL = http://localhost:8080/notes
+
+GET {{apiURL}}
+
+###
+
+POST {{apiURL}}
+Content-Type: application/json
+
+{  
+    "author_id": 3,
+    "text": "Köp ost!" 
+}
+
+###
+
+DELETE {{apiURL}}/5
