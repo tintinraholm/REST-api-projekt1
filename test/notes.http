@@ -3,10 +3,22 @@
 GET {{apiURL}}
 
 ###
-GET {{apiURL}}/3
+GET {{apiURL}}/1
+
+###
+POST {{apiURL}}
+Content-Type: application/json
+
+{  
+    "author_id": 1,
+    "text": "Köp bröd!" 
+}
 
 ###
 PUT {{apiURL}}/1
 Content-Type: application/json
 
 { "text": "köp bröd"}
+
+###
+DELETE {{apiURL}}/6
