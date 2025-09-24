@@ -15,4 +15,32 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get("/:id", async (req, res) => {
+    const id = parseInt(req.params.id)
+    try {
+        const note = await prisma.note.findUnique({
+            where : { id:id }
+        })
+        res.json(note)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg: "Error, cannot get id"})
+    }
+})
+router.put('/:id', async (req, res) => {
+    const id = parseInt(req.params.id)
+    try {
+        const note = await prisma.note.update({
+            where : { id: id },
+            data: {
+                note: req.body.text
+            }
+        })
+        res.status(200).send(note)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg: "Error, put failed"})
+    }
+})
+
 module.exports = router
