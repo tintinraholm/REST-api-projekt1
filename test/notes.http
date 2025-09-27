@@ -15,11 +15,3 @@ Content-Type: application/json
 ###
 
 DELETE {{apiURL}}/5
-
-@apiURL = http://localhost:8070/notes
-
-###
-PUT {{apiURL}}/1
-Content-Type: application/json
-
-{ "text": "köp bröd"}
