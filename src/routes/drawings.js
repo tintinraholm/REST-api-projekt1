@@ -2,7 +2,7 @@ const express = require('express')
 const { PrismaClient, Prisma } = require('@prisma/client')
 const router = express.Router()
 const prisma = new PrismaClient()
-const authorize = require('../middleware/authorize')
+//const authorize = require('../middleware/authorize')
 
 router.get('/', async (req, res) => {
     try {
@@ -15,11 +15,11 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', authorize, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const newDrawing = await prisma.note.create({
             data: {
-                author_id: parseInt(req.authUser.sub),
+                author_id: parseInt(req.body.author_id),
                 note: null,
                 drawing: req.body.drawing
             }
@@ -31,7 +31,7 @@ router.post('/', authorize, async (req, res) => {
     }
 })
 
-router.delete('/:id', authorize, async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
     try {
         const deleteDrawing = await prisma.note.delete({
@@ -46,7 +46,7 @@ router.delete('/:id', authorize, async (req, res) => {
     }
 })
 
-router.put('/:id', authorize, async (req, res) => {
+router.put('/:id', async (req, res) => {
     const id = parseInt(req.params.id)
     try {
         const updatedDrawing = await prisma.note.update({

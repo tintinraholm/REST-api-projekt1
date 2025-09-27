@@ -14,8 +14,8 @@ model Note {
   drawing    Json?
   created_at DateTime @default(now()) @db.Timestamp(6)
   updated_at DateTime @updatedAt @db.Timestamp(6)
-  board_id   Int
-  boards     boards   @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "board_id")
+  board_id   Int?
+  boards     boards?   @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "board_id")
 
   @@map("notes")
 }
