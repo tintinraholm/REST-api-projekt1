@@ -19,6 +19,9 @@ app.get('/', (req, res) => {
     res.send("It works!")
 })
 
+const notesRouter = require('./routes/notes')
+app.use('/notes', notesRouter)
+
 app.listen(PORT, () => {
     try {
         console.log(`Running on http://localhost:${PORT}`)

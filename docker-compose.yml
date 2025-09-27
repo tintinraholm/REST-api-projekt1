@@ -9,3 +9,4 @@ services:
       - "8070:8070"
     environment:
       - MODE
+    command: npm run dev
