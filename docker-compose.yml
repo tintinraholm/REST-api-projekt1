@@ -6,7 +6,7 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - "8060:8060"
+      - "8070:8070"
     environment:
       - MODE
     command: npm run dev
