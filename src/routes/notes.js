@@ -12,10 +12,7 @@ router.get('/:currentBoardId', authorize, async (req, res) => {
         const currentBoardId = parseInt(req.params.currentBoardId)
 
         const notes = await prisma.note.findMany({
-            where: { board_id: currentBoardId },
-            data: {
-                note: note.text
-            }
+            where: { board_id: currentBoardId }
         })
         res.json(notes)
     } catch (error) {
