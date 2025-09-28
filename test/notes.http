@@ -8,8 +8,17 @@ POST {{apiURL}}
 Content-Type: application/json
 
 {  
-    "author_id": 3,
-    "text": "Köp ost!" 
+    "author_id": 1,
+    "text": "Köp bröd!"  
+}
+
+###
+
+PUT {{apiURL}}/1
+Content-Type: application/json
+
+{
+    "text": "Köp mjölk"
 }
 
 ###

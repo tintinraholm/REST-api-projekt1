@@ -44,6 +44,22 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.put('/:id', async (req, res) => {
+    const id = parseInt(req.params.id)
+    try {
+        const updatedNote = await prisma.note.update({
+            where: { id: id },
+            data: {
+                note: req.body.text
+            }
+        })
+        res.json(updatedNote)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ msg: "Error: PUT failed" })
+    }
+})
+
 router.delete('/:id', async (req, res) => {
       
     try {
