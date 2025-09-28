@@ -1,4 +1,4 @@
-@apiURL = http://localhost:8070/notes
+@apiURL = http://localhost:8060/notes
 
 GET {{apiURL}}
 
