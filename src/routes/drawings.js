@@ -3,9 +3,16 @@ const { PrismaClient, Prisma } = require('@prisma/client')
 const router = express.Router()
 const prisma = new PrismaClient()
 
-router.get('/', async (req, res) => {
+const authorize = require('../middleware/authorize')
+const jwt = require('jsonwebtoken')
+
+router.get('/:currentBoardId', authorize, async (req, res) => {
+    const currentBoardId = parseInt(req.params.currentBoardId)
+
     try {
-        const drawings = await prisma.note.findMany()
+        const drawings = await prisma.note.findMany({
+            where: { board_id: currentBoardId }
+        })
         res.json(drawings)
     } catch (error) {
         console.log(error)
@@ -14,13 +21,16 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/:currentBoardId', authorize, async (req, res) => {
+    const currentBoardId = parseInt(req.params.currentBoardId)
+
     try {
         const newDrawing = await prisma.note.create({
             data: {
                 author_id: parseInt(req.authUser.sub),
                 note: null,
-                drawing: req.body.drawing
+                drawing: req.body.drawing,
+                board_id: currentBoardId
             }
         })
         res.json({ msg: "New drawing saved", id: newDrawing.id })
@@ -30,7 +40,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authorize, async (req, res) => {
 
     try {
         const deleteDrawing = await prisma.note.delete({
@@ -45,7 +55,7 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authorize, async (req, res) => {
     const id = parseInt(req.params.id)
     try {
         const updatedDrawing = await prisma.note.update({
@@ -61,7 +71,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", authorize, async (req, res) => {
     const id = parseInt(req.params.id)
     try {
         const drawing = await prisma.note.findUnique({
