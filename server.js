@@ -7,8 +7,7 @@ const PORT = process.env.PORT || 8070
 
 app.use(express.json())
 app.use(cors({
-  origin: "https://people.arcada.fi/~rehnstli/post-it-projekt1",
-  credentials: true
+  origin: "https://people.arcada.fi"
 }))
 
 const notesRouter = require('./src/routes/notes')
