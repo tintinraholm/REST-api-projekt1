@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 8070
 app.use(express.json())
 app.use(cors())
 
-
 const notesRouter = require('./src/routes/notes')
 app.use('/notes', notesRouter)
 
@@ -18,14 +17,6 @@ app.use('/drawings', drawingsRouter)
 const boardsRouter = require('./src/routes/boards')
 app.use('/boards', boardsRouter)
 
-app.get('/', (req, res) => {
-    res.send("It works!")
-})
-
 app.listen(PORT, () => {
-    try {
-        console.log(`Running on http://localhost:${PORT}`)
-    } catch (error) {
-        console.log(error)
-    }
+    console.log(`Running on:${PORT}`)
 })

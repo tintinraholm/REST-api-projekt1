@@ -2,7 +2,6 @@ const express = require('express')
 const { PrismaClient } = require('@prisma/client')
 const authorize = require('../middleware/authorize')
 
-const jwt = require('jsonwebtoken')
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -16,24 +15,10 @@ router.get('/:currentBoardId', authorize, async (req, res) => {
         })
         res.json(notes)
     } catch (error) {
-        console.log(error)
         res.status(500).send({ msg: "Error" })
         console.log(error)
     }
 })
-
-/*router.get("/:id", authorize, async (req, res) => {
-    const id = parseInt(req.params.id)
-    try {
-        const note = await prisma.note.findUnique({
-            where: { id: id }
-        })
-        res.json(note)
-    } catch (error) {
-        console.log(error)
-        res.status(500).send({ msg: "Error, cannot get id" })
-    }
-})*/
 
 router.post('/:currentBoardId', authorize, async (req, res) => {
 
@@ -53,6 +38,7 @@ router.post('/:currentBoardId', authorize, async (req, res) => {
         res.status(500).send({ msg: "Error: POST failed" })
     }
 })
+
 router.delete('/:id', authorize, async (req, res) => {
 
     try {
@@ -61,7 +47,7 @@ router.delete('/:id', authorize, async (req, res) => {
                 id: parseInt(req.params.id),
             }
         })
-        res.status(200).send({ msg: "Note deleted", deleteNote })
+        res.json({ msg: "Note deleted", deleteNote })
     } catch (error) {
         console.log(error)
         res.status(500).send({ msg: "Error: DELETE failed" })

@@ -1,10 +1,9 @@
 const express = require('express')
-const { PrismaClient, Prisma } = require('@prisma/client')
+const { PrismaClient } = require('@prisma/client')
 const router = express.Router()
 const prisma = new PrismaClient()
 
 const authorize = require('../middleware/authorize')
-const jwt = require('jsonwebtoken')
 
 router.get('/:currentBoardId', authorize, async (req, res) => {
     const currentBoardId = parseInt(req.params.currentBoardId)
@@ -15,7 +14,6 @@ router.get('/:currentBoardId', authorize, async (req, res) => {
         })
         res.json(drawings)
     } catch (error) {
-        console.log(error)
         res.status(500).send({ msg: "Error: GET failed" })
         console.log(error)
     }
@@ -70,18 +68,5 @@ router.put('/:id', authorize, async (req, res) => {
         res.status(500).send({ msg: "Error: PUT failed" })
     }
 })
-
-/* router.get("/:id", authorize, async (req, res) => {
-    const id = parseInt(req.params.id)
-    try {
-        const drawing = await prisma.note.findUnique({
-            where: { id: id }
-        })
-        res.json(drawing)
-    } catch (error) {
-        console.log(error)
-        res.status(500).send({ msg: "Error, cannot get id" })
-    }
-}) */
 
 module.exports = router

@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const authorize = require('../middleware/authorize')
 
-const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const { PrismaClient } = require('@prisma/client')
@@ -16,15 +15,14 @@ router.get('/', authorize, async (req, res) => {
         const boards = await prisma.board.findMany({
             where: { user_id: parseInt(req.authUser.sub) }
         })
-        console.log(boards);
 
         if (!boards || boards.length === 0) {
-            return res.status(404).json({ msg: "Inga boards hittades" });
+            return res.status(404).json({ msg: "Inga boards hittades" })
         }
 
-        res.json({boards})
+        res.json({ boards })
     } catch (error) {
-        console.error("Fel vid Prisma-query:", error);
+        console.error("Fel vid Prisma-query:", error)
         res.status(500).json({ msg: "Error. Problem fetching boards", error: error.message })
     }
 })
@@ -40,13 +38,12 @@ router.post('/', authorize, async (req, res) => {
                 user_id: parseInt(req.authUser.sub)
             }
         })
-        console.log({ newBoard });
 
         res.json({ newBoard })
     } catch (error) {
-        console.error("Fel vid Prisma-query:", error);
+        console.error("Fel vid Prisma-query:", error)
         res.status(500).json({ msg: "Kunde inte skapa board", error: error.message })
     }
 })
 
-module.exports = router;
+module.exports = router
