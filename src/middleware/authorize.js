@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     console.log('Authorize JWT')
     try {
         const authHeader = req.headers['authorization']
-        const token = authHeader.split(' ')[1]
+        const token = authHeader.split(" ")[1]
         
         console.log(token)
 

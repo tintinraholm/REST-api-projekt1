@@ -1,0 +1,16 @@
+@apiURL = http://localhost:8060/boards
+
+###
+
+POST {{apiURL}}
+Content-Type: application/json
+
+{  
+    "name": "todo",
+    "user_id": 6
+}
+
+###
+
+GET {{apiURL}}/boards
+Content-Type: application/json

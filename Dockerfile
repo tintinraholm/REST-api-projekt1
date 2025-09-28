@@ -21,6 +21,8 @@ EXPOSE 8080
 
 EXPOSE 8070
 
+EXPOSE 8060
+
 # Generate the prisma client
 RUN npx prisma generate
 
