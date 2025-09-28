@@ -32,7 +32,7 @@ router.post('/:currentBoardId', authorize, async (req, res) => {
                 board_id: currentBoardId
             }
         })
-        res.json({ msg: "New note created", id: newNote.id })
+        res.json({ msg: "New note created", id: newNote.id, note: newNote.note, board_id: newNote.board_id })
     } catch (error) {
         console.log(error)
         res.status(500).send({ msg: "Error: POST failed" })
