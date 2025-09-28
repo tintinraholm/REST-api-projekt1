@@ -13,7 +13,7 @@ router.get('/:currentBoardId', authorize, async (req, res) => {
         const drawings = await prisma.note.findMany({
             where: { board_id: currentBoardId }
         })
-        res.json({drawings})
+        res.json(drawings)
     } catch (error) {
         console.log(error)
         res.status(500).send({ msg: "Error: GET failed" })
