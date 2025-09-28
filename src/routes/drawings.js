@@ -40,7 +40,7 @@ router.post('/:currentBoardId', authorize, async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authorize, async (req, res) => {
 
     try {
         const deleteDrawing = await prisma.note.delete({
@@ -55,7 +55,7 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authorize, async (req, res) => {
     const id = parseInt(req.params.id)
     try {
         const updatedDrawing = await prisma.note.update({
@@ -71,7 +71,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.get("/:id", authorize, async (req, res) => {
+/* router.get("/:id", authorize, async (req, res) => {
     const id = parseInt(req.params.id)
     try {
         const drawing = await prisma.note.findUnique({
@@ -82,6 +82,6 @@ router.get("/:id", authorize, async (req, res) => {
         console.log(error)
         res.status(500).send({ msg: "Error, cannot get id" })
     }
-})
+}) */
 
 module.exports = router

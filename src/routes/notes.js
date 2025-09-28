@@ -12,7 +12,10 @@ router.get('/:currentBoardId', authorize, async (req, res) => {
         const currentBoardId = parseInt(req.params.currentBoardId)
 
         const notes = await prisma.note.findMany({
-            where: { board_id: currentBoardId }
+            where: { board_id: currentBoardId },
+            data: {
+                note: note.text
+            }
         })
         res.json(notes)
     } catch (error) {
@@ -22,7 +25,7 @@ router.get('/:currentBoardId', authorize, async (req, res) => {
     }
 })
 
-router.get("/:id", authorize, async (req, res) => {
+/*router.get("/:id", authorize, async (req, res) => {
     const id = parseInt(req.params.id)
     try {
         const note = await prisma.note.findUnique({
@@ -33,7 +36,7 @@ router.get("/:id", authorize, async (req, res) => {
         console.log(error)
         res.status(500).send({ msg: "Error, cannot get id" })
     }
-})
+})*/
 
 router.post('/:currentBoardId', authorize, async (req, res) => {
 
@@ -53,23 +56,6 @@ router.post('/:currentBoardId', authorize, async (req, res) => {
         res.status(500).send({ msg: "Error: POST failed" })
     }
 })
-
-router.put('/:id', async (req, res) => {
-    const id = parseInt(req.params.id)
-    try {
-        const updatedNote = await prisma.note.update({
-            where: { id: id },
-            data: {
-                note: req.body.text
-            }
-        })
-        res.json(updatedNote)
-    } catch (error) {
-        console.log(error)
-        res.status(500).send({ msg: "Error: PUT failed" })
-    }
-})
-
 router.delete('/:id', authorize, async (req, res) => {
 
     try {
@@ -88,16 +74,16 @@ router.delete('/:id', authorize, async (req, res) => {
 router.put('/:id', authorize, async (req, res) => {
     const id = parseInt(req.params.id)
     try {
-        const note = await prisma.note.update({
+        const updatedNote = await prisma.note.update({
             where: { id: id },
             data: {
                 note: req.body.text
             }
         })
-        res.status(200).send(note)
+        res.json(updatedNote)
     } catch (error) {
         console.log(error)
-        res.status(500).send({ msg: "Error, put failed" })
+        res.status(500).send({ msg: "Error: PUT failed" })
     }
 })
 
