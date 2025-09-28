@@ -22,7 +22,7 @@ router.get('/', authorize, async (req, res) => {
             return res.status(404).json({ msg: "Inga boards hittades" });
         }
 
-        res.json(boards)
+        res.json({boards})
     } catch (error) {
         console.error("Fel vid Prisma-query:", error);
         res.status(500).json({ msg: "Error. Problem fetching boards", error: error.message })
